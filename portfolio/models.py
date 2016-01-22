@@ -80,6 +80,7 @@ class Project(OrderedModel):
 
 class ProjectCategory(OrderedModel):
     name = models.CharField(max_length=140)
+    slug = models.SlugField(editable=False)
     smallDescription = models.CharField(max_length=140, blank=True)
     description = models.TextField(blank=True)
     image = models.ImageField(null=True, blank=True)
@@ -89,6 +90,10 @@ class ProjectCategory(OrderedModel):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(ProjectCategory, self).save(*args, **kwargs)
 
     def image_img(self):
         if self.image:
@@ -158,6 +163,7 @@ class Link(OrderedModel):
 
 class LinkCategory(models.Model):
     name = models.CharField(max_length=140)
+    slug = models.SlugField(editable=False)
     image = models.ImageField(upload_to=imageLocation, null=True, blank=True)
 
     class Meta:
@@ -165,6 +171,10 @@ class LinkCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(LinkCategory, self).save(*args, **kwargs)
 
     def image_img(self):
         if self.image:

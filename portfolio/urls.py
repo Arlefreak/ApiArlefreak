@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'projectsCategories', views.ProjectCategoryViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
