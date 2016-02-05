@@ -32,5 +32,5 @@ class ImageViewSet(viewsets.ModelViewSet):
         queryset = Image.objects.all()
         serializer_class = ImageSerializer
         filter_backends = (filters.DjangoFilterBackend,)
-        filter_fields = ('project__id',)
+        filter_fields = ('project__id','imgType')
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
