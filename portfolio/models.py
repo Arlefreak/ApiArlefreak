@@ -164,7 +164,7 @@ class Link(OrderedModel):
 class LinkCategory(models.Model):
     name = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
-    image = models.ImageField(upload_to=imageLocation, null=True, blank=True)
+    image = models.FileField(upload_to=imageLocation, null=True, blank=True)
 
     class Meta:
         ordering = ['name']
