@@ -7,6 +7,7 @@ router.register(r'projects', views.ProjectViewSet)
 router.register(r'projectsCategories', views.ProjectCategoryViewSet)
 router.register(r'projectsLinks', views.ProjectLinkViewSet)
 router.register(r'images', views.ImageViewSet)
+router.register(r'tags', views.TagViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

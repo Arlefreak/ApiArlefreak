@@ -4,12 +4,12 @@ from taggit_serializer.serializers \
 from .models import Project, ProjectCategory, Link,\
     LinkCategory, Image
 
+from taggit.models import Tag
 
 class ProjectSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField(required=False)
     class Meta:
         model = Project
-
 
 class ProjectCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,3 +27,7 @@ class ProjectLinksSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
