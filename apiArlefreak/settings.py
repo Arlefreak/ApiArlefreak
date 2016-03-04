@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'imagekit',
     'rest_framework',
     'embed_video',
     'taggit',

@@ -3,6 +3,8 @@ from django.template.defaultfilters import slugify
 from ordered_model.models import OrderedModel
 from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 import os
 
 
@@ -114,6 +116,11 @@ class Image(OrderedModel):
     image = models.ImageField(upload_to=imageLocation)
     imgType = models.CharField(max_length=3, choices=IMAGE_TYPE, default='gal')
     dateCreated = models.DateField(auto_now_add=True)
+    thumbnail = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(100, 100)],
+        format='JPEG',
+        options={'quality': 60})
 
     class Meta:
         ordering = ['order', 'dateCreated']
@@ -124,7 +131,7 @@ class Image(OrderedModel):
     def image_img(self):
         if self.image:
             return u'<img src="%s" style="width: 100px;'\
-                ' height: auto; display: block;"/>' % self.image.url
+                ' height: auto; display: block;"/>' % self.thumbnail.url
         else:
             return 'No Image'
     image_img.short_description = 'Image'
