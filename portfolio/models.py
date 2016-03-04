@@ -119,7 +119,7 @@ class Image(OrderedModel):
     thumbnail = ImageSpecField(
         source='image',
         processors=[ResizeToFill(100, 100)],
-        format='JPEG',
+        format='PNG',
         options={'quality': 100})
 
     class Meta:
