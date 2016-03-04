@@ -120,7 +120,7 @@ class Image(OrderedModel):
         source='image',
         processors=[ResizeToFill(100, 100)],
         format='JPEG',
-        options={'quality': 60})
+        options={'quality': 100})
 
     class Meta:
         ordering = ['order', 'dateCreated']
