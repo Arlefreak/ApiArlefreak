@@ -118,7 +118,7 @@ class Image(OrderedModel):
     dateCreated = models.DateField(auto_now_add=True)
     thumbnail = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(100, 100)],
+        processors=[ResizeToFill(200, 200)],
         format='PNG',
         options={'quality': 100})
 
