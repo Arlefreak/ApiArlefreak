@@ -4,7 +4,7 @@ from ordered_model.models import OrderedModel
 from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFill, Adjust
 import os
 
 
@@ -119,6 +119,11 @@ class Image(OrderedModel):
     thumbnail = ImageSpecField(
         source='image',
         processors=[ResizeToFill(200, 200)],
+        format='PNG',
+        options={'quality': 100})
+    thumbnailBW = ImageSpecField(
+        source='image',
+        processors=[Adjust(color=0.0),ResizeToFill(200, 200)],
         format='PNG',
         options={'quality': 100})
 

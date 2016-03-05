@@ -26,6 +26,7 @@ class ProjectLinksSerializer(serializers.ModelSerializer):
 
 class ImageSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)
+    thumbnailBW = serializers.ImageField(read_only=True)
     class Meta:
         model = Image
 
