@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'taggit',
     'taggit_serializer',
     'portfolio',
+    'diary',
 ]
 
 MIDDLEWARE_CLASSES = [

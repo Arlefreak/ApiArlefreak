@@ -36,6 +36,7 @@ class ImageViewSet(viewsets.ModelViewSet):
         filter_fields = ('project__id','imgType')
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+
 class TagViewSet(viewsets.ModelViewSet):
         queryset = Tag.objects.all()
         serializer_class = TagSerializer
