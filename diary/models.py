@@ -33,7 +33,7 @@ class Post(OrderedModel):
         ordering = ['order', 'title']
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
