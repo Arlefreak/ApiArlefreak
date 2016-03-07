@@ -11,7 +11,7 @@ class PostViewSet(viewsets.ModelViewSet):
         filter_backends = (filters.DjangoFilterBackend,)
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-class ImageViewSet(viewsets.ModelViewSet):
+class PostImageViewSet(viewsets.ModelViewSet):
         queryset = Image.objects.all()
         serializer_class = ImageSerializer
         filter_backends = (filters.DjangoFilterBackend,)

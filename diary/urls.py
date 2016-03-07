@@ -4,15 +4,8 @@ from apiArlefreak.SharedRouter import SharedRootRouter
 
 router = SharedRootRouter()
 router.register(r'posts', views.PostViewSet)
-router.register(r'postImages', views.ImageViewSet)
+router.register(r'postImages', views.PostViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(
-        r'^api-auth/',
-        include(
-            'rest_framework.urls',
-            namespace='rest_framework'
-        )
-    )
 ]

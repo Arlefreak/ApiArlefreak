@@ -29,7 +29,7 @@ class ProjectLinkViewSet(viewsets.ModelViewSet):
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-class ImageViewSet(viewsets.ModelViewSet):
+class ProjectImageViewSet(viewsets.ModelViewSet):
         queryset = Image.objects.all()
         serializer_class = ImageSerializer
         filter_backends = (filters.DjangoFilterBackend,)
