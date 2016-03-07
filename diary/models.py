@@ -26,7 +26,7 @@ class Post(OrderedModel):
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
