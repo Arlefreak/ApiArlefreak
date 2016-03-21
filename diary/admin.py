@@ -24,6 +24,7 @@ class PostAdmin(OrderedModelAdmin):
     )
     list_display_links = (
         'title',
+        'dateCreated',
         'image_img',
     )
     list_filter = (
