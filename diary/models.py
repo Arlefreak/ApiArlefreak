@@ -30,7 +30,7 @@ class Post(OrderedModel):
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
-        ordering = ['order', 'title']
+        ordering = ['dateCreated', 'order', 'title']
 
     def __str__(self):
         return self.title
