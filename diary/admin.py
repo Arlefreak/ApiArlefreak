@@ -17,9 +17,10 @@ class VideoInline(admin.TabularInline):
 class PostAdmin(OrderedModelAdmin):
     list_display = (
         'publish',
-        'title',
-        'image_img',
         'move_up_down_links',
+        'title',
+        'dateCreated',
+        'image_img',
     )
     list_display_links = (
         'title',
