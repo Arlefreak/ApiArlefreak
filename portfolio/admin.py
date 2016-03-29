@@ -74,6 +74,7 @@ class ImageAdmin(OrderedModelAdmin):
         'project',
         'name',
         'caption',
+        'imgType',
         'image_img',
         'move_up_down_links',
     )
@@ -85,6 +86,7 @@ class ImageAdmin(OrderedModelAdmin):
     list_editable = (
         'publish',
         'project',
+        'imgType',
     )
     list_filter = (
         'project',
