@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 from django.template.defaultfilters import slugify
 from django.core.validators import RegexValidator
 
@@ -42,7 +43,6 @@ class Client(models.Model):
         else:
             return 'No phone'
 
-
 class Payment(models.Model):
     client = models.ForeignKey('Client')
     money  = models.FloatField(default=0)
@@ -51,6 +51,11 @@ class Payment(models.Model):
     dateExpiration = models.DateField(null=True)
     dateSet = models.DateField(null=True)
     status = models.CharField(choices=PAYMENT_STATUS, max_length=3, default='ONT')
+    def save(self, *args, **kwargs):
+        if(self.dateExpiration < datetime.date(datetime.now())):
+            self.status = 'LAT'
+        super(Payment, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ['dateCreated']
 
