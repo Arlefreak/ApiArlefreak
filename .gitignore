@@ -139,4 +139,4 @@ Session.vim
 sftp-config.json
 
 .ropeproject/
-.env
+*.env
