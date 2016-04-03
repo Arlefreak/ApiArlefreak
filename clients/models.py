@@ -13,6 +13,11 @@ PAYMENT_STATUS = (
     ('LAT','late'),
 )
 
+CURRENCIES = (
+    ('MXN','MXN'),
+    ('USD','USD'),
+)
+
 class Client(models.Model):
     name = models.CharField(max_length=140)
     compayName = models.CharField(blank=True, default="", max_length=140)
@@ -46,15 +51,16 @@ class Client(models.Model):
 class Payment(models.Model):
     client = models.ForeignKey('Client')
     money  = models.FloatField(default=0)
+    currency = models.CharField(choices=CURRENCIES, max_length=3, default='MXN')
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     dateExpiration = models.DateField(null=True)
     dateSet = models.DateField(null=True)
     status = models.CharField(choices=PAYMENT_STATUS, max_length=3, default='ONT')
-    def save(self, *args, **kwargs):
-        if(self.dateExpiration < datetime.date(datetime.now())):
-            self.status = 'LAT'
-        super(Payment, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+        # if(self.dateExpiration < datetime.date(datetime.now())):
+        #     self.status = 'LAT'
+        # super(Payment, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['dateCreated']

@@ -15,22 +15,25 @@ logger = get_task_logger(__name__)
 
 
 @periodic_task(
-    run_every=(crontab(minute='*/15')),
+    # run_every=(crontab(minute='*/15')),
+    # run_every=(crontab(minute='*/2')),
+    run_every=(crontab(minute=0, hour=0)),
     name="Check payments status",
     ignore_result=True
+
 )
 def check_payments_dates():
-    today_min = datetime.combine(datetime.now(), datetime.time.min)
+    # today_min = datetime.combine(datetime.now(), datetime.time.min)
     payments = ( Payment
                 .objects
                 .filter(
                     status='ONT',
-                    dateExpiration__lt =  today_min
+                    dateExpiration__lt = datetime.now()
                 )
         )
     for payment in payments:
-        subject = 'Subject'
-        message = 'Message'
+        subject = ('[P N][EXPIRED] - ' + str(payment.pk))
+        message = ('Payment: ' + str(payment.pk) + '\nfrom: ' + payment.client.name + '\nDue: ' + str(payment.dateExpiration))
         from_email = 'hi@arlefreak.com'
         to_email = 'arlefreak@gmail.com'
         payment.status = 'LAT'

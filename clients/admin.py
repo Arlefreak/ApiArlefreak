@@ -46,6 +46,7 @@ class PaymentAdmin(admin.ModelAdmin):
         'dateSet',
         'dateExpiration',
         'status',
+        'currency',
     )
     list_display_links = (
         'client',
@@ -59,6 +60,7 @@ class PaymentAdmin(admin.ModelAdmin):
     )
     list_editable = (
         'status',
+        'currency',
     )
 
 
