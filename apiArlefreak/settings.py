@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'portfolio',
     'diary',
     'clients',
+    'about',
 ]
 
 MIDDLEWARE_CLASSES = [
