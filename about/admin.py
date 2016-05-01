@@ -8,6 +8,7 @@ class ImageInline(admin.TabularInline):
 
 class ClientAdmin(OrderedModelAdmin):
     list_display = (
+        'publish',
         'move_up_down_links',
         'name',
         'text',
@@ -20,6 +21,9 @@ class ClientAdmin(OrderedModelAdmin):
         'dateCreated',
         'dateUpdated',
     )
+    list_editable = [
+        'publish',
+    ]
     inlines = [
         ImageInline
     ]

@@ -14,6 +14,7 @@ def imageLocation(instance, filename):
         filename_ext.lower(),)
 
 class Entry(OrderedModel):
+    publish = models.BooleanField(default=False)
     name = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
