@@ -16,8 +16,8 @@ logger = get_task_logger(__name__)
 
 @periodic_task(
     # run_every=(crontab(minute='*/15')),
-    # run_every=(crontab(minute='*/2')),
-    run_every=(crontab(minute=0, hour=0)),
+    run_every=(crontab(minute='*/2')),
+    # run_every=(crontab(minute=0, hour=0)),
     name="Check payments status",
     ignore_result=True
 
