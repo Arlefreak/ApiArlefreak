@@ -50,6 +50,7 @@ class Client(models.Model):
 
 class Payment(models.Model):
     client = models.ForeignKey('Client')
+    name = models.CharField(max_length=140, default="Payment")
     money  = models.FloatField(default=0)
     currency = models.CharField(choices=CURRENCIES, max_length=3, default='MXN')
     dateCreated = models.DateField(auto_now_add=True)
