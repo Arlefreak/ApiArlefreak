@@ -33,7 +33,7 @@ def check_payments_dates():
         )
     for payment in payments:
         subject = ('[P N][EXPIRED] - ' + str(payment.pk))
-        message = ('Payment: ' + payment.name + '\nid:' + str(payment.pk) + '\nfrom: ' + payment.client.name + '\nDue: ' + str(payment.dateExpiration))
+        message = ('Payment: ' + payment.name + '\nid: ' + str(payment.pk) + '\nfrom: ' + payment.client.name + '\nDue: ' + str(payment.dateExpiration))
         from_email = 'hi@arlefreak.com'
         to_email = 'arlefreak@gmail.com'
         payment.status = 'LAT'
