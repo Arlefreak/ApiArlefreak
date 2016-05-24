@@ -42,16 +42,16 @@ class PaymentAdmin(admin.ModelAdmin):
     date_hierarchy = 'dateSet'
     list_display = (
         'client',
+        'name',
         'money',
-        'dateSet',
         'dateExpiration',
         'status',
         'currency',
     )
     list_display_links = (
         'client',
+        'name',
         'money',
-        'dateSet',
         'dateExpiration',
     )
     list_filter = (

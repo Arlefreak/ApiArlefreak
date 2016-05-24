@@ -16,8 +16,8 @@ logger = get_task_logger(__name__)
 
 @periodic_task(
     # run_every=(crontab(minute='*/15')),
-    # run_every=(crontab(minute='*/2')),
-    run_every=(crontab(minute=0, hour=0)),
+    run_every=(crontab(minute='*/2')),
+    # run_every=(crontab(minute=0, hour=0)),
     name="Check payments status",
     ignore_result=True
 
@@ -33,7 +33,7 @@ def check_payments_dates():
         )
     for payment in payments:
         subject = ('[P N][EXPIRED] - ' + str(payment.pk))
-        message = ('Payment: ' + str(payment.pk) + '\nfrom: ' + payment.client.name + '\nDue: ' + str(payment.dateExpiration))
+        message = ('Payment: ' + payment.name + '\nid: ' + str(payment.pk) + '\nfrom: ' + payment.client.name + '\nDue: ' + str(payment.dateExpiration))
         from_email = 'hi@arlefreak.com'
         to_email = 'arlefreak@gmail.com'
         payment.status = 'LAT'
