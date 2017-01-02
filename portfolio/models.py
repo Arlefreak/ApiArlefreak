@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from ordered_model.models import OrderedModel
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 from embed_video.fields import EmbedVideoField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, Adjust
@@ -13,6 +14,8 @@ IMAGE_TYPE = (
     ('gal', 'Gallery'),
 )
 
+class TaggedProject(TaggedItemBase):
+    content_object = models.ForeignKey('Project')
 
 def imageLocation(instance, filename):
     from django.utils.timezone import now
@@ -39,7 +42,7 @@ class Project(OrderedModel):
     smallDescription = models.CharField(max_length=140, blank=True)
     description = models.TextField(blank=True)
     category = models.ForeignKey('ProjectCategory')
-    tags = TaggableManager()
+    tags = TaggableManager(through=TaggedProject)
     date = models.DateField(null=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)

@@ -13,6 +13,8 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['.arlefreak.com']
+if(DEBUG):
+    ALLOWED_HOSTS = ['*']
 ADMINS = (('Arlefreak', 'hi@arlefreak.com'),)
 
 # Application definition
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
     'diary',
     'clients',
     'about',
+    'ligoj',
 ]
 
 MIDDLEWARE_CLASSES = [

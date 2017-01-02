@@ -10,13 +10,14 @@ django-embed-video==1.1.0
 django-environ==0.4.0
 django-filter==0.13.0
 django-imagekit==3.3
-django-ordered-model==1.1.0
+django-ordered-model==1.3.0
 django-storages-redux==1.3.2
 django-taggit==0.18.1
 -e git://github.com/Arlefreak/django-taggit-serializer.git#egg=django-taggit-serializer
 djangorestframework==3.3.3
 greenlet==0.4.9
 gunicorn==19.4.5
+idna==2.2
 kombu==3.0.35
 Markdown==2.6.6
 msgpack-python==0.4.7
@@ -26,4 +27,6 @@ psycopg2==2.6.1
 pytz==2016.3
 redis==2.10.5
 requests==2.9.1
+requests-file==1.4.1
 six==1.10.0
+tldextract==2.0.2

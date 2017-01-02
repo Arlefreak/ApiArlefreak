@@ -1,7 +1,6 @@
-from .models import Project, ProjectCategory, Link, Image
-from taggit.models                 import Tag
+from .models import Project, ProjectCategory, Link, Image, TaggedProject
 from .serializers import ProjectSerializer, ProjectCategorySerializer, \
-    ProjectLinksSerializer, ImageSerializer, TagSerializer
+    ProjectLinksSerializer, ImageSerializer, ProjectTagSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import filters
@@ -37,8 +36,8 @@ class ProjectImageViewSet(viewsets.ModelViewSet):
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-class TagViewSet(viewsets.ModelViewSet):
-        queryset = Tag.objects.all()
-        serializer_class = TagSerializer
+class ProjectTagViewSet(viewsets.ModelViewSet):
+        queryset = TaggedProject.objects.all().distinct('tag')
+        serializer_class = ProjectTagSerializer
         filter_backends = (filters.DjangoFilterBackend,)
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

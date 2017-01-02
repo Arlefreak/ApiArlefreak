@@ -1,8 +1,9 @@
 from rest_framework import serializers
+from taggit.models import Tag
 from taggit_serializer.serializers \
     import TagListSerializerField, TaggitSerializer
 from .models import Project, ProjectCategory, Link,\
-    LinkCategory, Image
+    LinkCategory, Image, TaggedProject
 
 from taggit.models import Tag
 
@@ -30,6 +31,13 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
 
-class TagSerializer(serializers.ModelSerializer):
+class ProjectTagSerializer(serializers.ModelSerializer, ):
+    tag = serializers.SlugRelatedField(
+        many=False,
+        read_only=True,
+        slug_field='name'
+     )
+
     class Meta:
-        model = Tag
+        model = TaggedProject
+        fields = ('id', 'tag',)

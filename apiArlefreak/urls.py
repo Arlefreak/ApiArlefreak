@@ -11,6 +11,7 @@ urlpatterns = [
         )
     ),
     url(r'^portfolio/', include('portfolio.urls')),
+    url(r'^ligoj/', include('ligoj.urls')),
     url(r'^diary/', include('diary.urls')),
     url(r'^about/', include('about.urls')),
 ]
