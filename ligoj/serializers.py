@@ -14,7 +14,8 @@ class LinkTagSerializer(serializers.ModelSerializer, ):
         read_only=True,
         slug_field='name'
      )
+    tag_id = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = TaggedLink
-        fields = ('id', 'tag',)
+        fields = ('tag', 'tag_id',)

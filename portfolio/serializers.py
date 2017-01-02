@@ -37,7 +37,8 @@ class ProjectTagSerializer(serializers.ModelSerializer, ):
         read_only=True,
         slug_field='name'
      )
+    tag_id = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = TaggedProject
-        fields = ('id', 'tag',)
+        fields = ('tag_id', 'tag')
