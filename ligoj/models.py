@@ -16,6 +16,11 @@ class TaggedLink(TaggedItemBase):
     content_object = models.ForeignKey('Link')
 
 class Link(models.Model):
+    name = models.CharField(
+        max_length=140,
+        default='no name',
+        editable=False
+    )
     link = models.URLField()
     status = models.CharField(
         max_length=3,
@@ -29,7 +34,11 @@ class Link(models.Model):
         ordering = ['date_updated']
 
     def __str__(self):
+        return self.name
+    def save(self, *args, **kwargs):
         domain = ""
         if tldextract.extract(self.link).registered_domain:
             domain = tldextract.extract(self.link).registered_domain 
-        return "%s - %s" % (domain, self.date_updated)
+        name = "%s - %s" % (domain, self.date_updated)
+        self.name = name
+        super(Link, self).save(*args, **kwargs)
