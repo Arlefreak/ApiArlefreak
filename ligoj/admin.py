@@ -3,14 +3,14 @@ from .models import Link
 
 class LinkAdmin(admin.ModelAdmin):
     list_display = (
-        'status',
-        'link',
-        'tag_list',
         'date_created',
+        'status',
+        'name',
+        'tag_list',
         'date_updated',
     )
     list_display_links = (
-        'link',
+        'name',
         'date_created',
         'date_updated',
     )
