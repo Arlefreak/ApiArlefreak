@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'imagekit',
     'rest_framework',
+    'rest_framework.authtoken',
     'embed_video',
     'taggit',
     'taggit_serializer',
@@ -125,6 +126,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
 

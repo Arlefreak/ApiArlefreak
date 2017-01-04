@@ -147,7 +147,6 @@ class LinkCategoryAdmin(admin.ModelAdmin):
         'image_img'
     )
 
-
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProjectCategory, ProjectCategoryAdmin)
 admin.site.register(Image, ImageAdmin)
