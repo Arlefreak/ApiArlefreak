@@ -26,7 +26,7 @@ class Link(models.Model):
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
     class Meta:
-        ordering = ['date_updated']
+        ordering = ['-date_updated']
     def name(self):
         domain = ""
         name = "no name"
@@ -37,10 +37,3 @@ class Link(models.Model):
         return name
     def __str__(self):
         return self.name()
-    # def save(self, *args, **kwargs):
-    #     domain = ""
-    #     if tldextract.extract(self.link).registered_domain:
-    #         domain = tldextract.extract(self.link).registered_domain 
-    #     name = "%s" % (domain)
-    #     self.name = name
-    #     super(Link, self).save(*args, **kwargs)
