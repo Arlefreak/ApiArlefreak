@@ -5,8 +5,8 @@ from .models import Link, TaggedLink
 
 class LinkSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField(required=False)
-    dateUpdated = serializers.CharField(source='date_updated', read_only=True)
-    dateCreated = serializers.CharField(source='date_created', read_only=True)
+    dateUpdated = serializers.DateField(source='date_updated', read_only=True)
+    dateCreated = serializers.DateField(source='date_created', read_only=True)
     status = serializers.CharField(read_only=True)
     class Meta:
         model = Link

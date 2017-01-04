@@ -26,7 +26,7 @@ class Link(models.Model):
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
     class Meta:
-        ordering = ['-date_updated']
+        ordering = ['-date_created']
     def name(self):
         domain = ""
         name = "no name"
