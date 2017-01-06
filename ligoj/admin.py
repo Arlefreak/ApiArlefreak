@@ -1,7 +1,22 @@
 from django.contrib import admin
 from .models import Link
 
+def LinkSetAct(modeladmin, request, queryset):
+    # queryset.update(status='ACT')
+    for obj in queryset:
+        obj.status = 'ACT'
+        obj.save()
+LinkSetAct.short_description = "Set Active"
+
+def LinkSetHidden(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.status = 'HID'
+        obj.save()
+LinkSetHidden.short_description = "Set Hidden"
+
 class LinkAdmin(admin.ModelAdmin):
+    save_on_top = True
+    actions = [LinkSetAct, LinkSetHidden]
     list_display = (
         'date_created',
         'status',
