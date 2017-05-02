@@ -1,5 +1,6 @@
 amqp==1.4.9
 anyjson==0.3.3
+appdirs==1.4.3
 beautifulsoup4==4.5.3
 billiard==3.3.0.23
 boto==2.39.0
@@ -7,7 +8,7 @@ celery==3.1.23
 Django==1.9.5
 django-appconf==1.0.1
 django-cors-headers==1.1.0
-django-embed-video==1.1.0
+django-embed-video==1.1.2
 django-environ==0.4.0
 django-filter==0.13.0
 django-imagekit==3.3
@@ -22,12 +23,15 @@ idna==2.2
 kombu==3.0.35
 Markdown==2.6.6
 msgpack-python==0.4.7
+packaging==16.8
 pilkit==1.1.13
 Pillow==3.2.0
 psycopg2==2.6.1
+pyparsing==2.2.0
 pytz==2016.3
 redis==2.10.5
 requests==2.9.1
 requests-file==1.4.1
 six==1.10.0
 tldextract==2.0.2
+vine==1.1.3
