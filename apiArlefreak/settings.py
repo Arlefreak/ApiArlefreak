@@ -12,7 +12,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['.arlefreak.com', '.ellugar.co']
+ALLOWED_HOSTS = ['.arlefreak.com', '.ellugar.co', 'api.ellugar.co']
 if(DEBUG):
     ALLOWED_HOSTS = ['*']
 ADMINS = (('Arlefreak', 'hi@arlefreak.com'),)
