@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'embed_video',
     'taggit',
     'taggit_serializer',
+    'solo',
+    'web_client',
     'portfolio',
     'diary',
     'clients',

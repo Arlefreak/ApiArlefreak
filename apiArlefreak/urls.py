@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^ligoj/', include('ligoj.urls')),
     url(r'^diary/', include('diary.urls')),
     url(r'^about/', include('about.urls')),
+    url(r'^web_client/', include('web_client.urls')),
 ]
