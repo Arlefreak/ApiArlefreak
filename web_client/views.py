@@ -3,9 +3,9 @@ from rest_framework.response import Response
 
 from .models import SiteConfiguration
 
-config = SiteConfiguration.get_solo()
 
 class SiteConfiguration(APIView):
+    config = SiteConfiguration.get_solo()
     permission_classes = []
 
     def get(self, request, format=None):
