@@ -14,6 +14,12 @@ class SiteConfiguration(SingletonModel):
     site_name = models.CharField(max_length=140, default='ellugar.co')
     default_description = models.CharField(max_length=140, default='description')
     default_preview = models.ImageField(upload_to=imageLocation)
+    long_description = models.TextField(default="description")
+    mail = models.EmailField(default="arlefreak@gmail.com")
+    twitter = models.URLField(default="twitter")
+    github = models.URLField(default="github")
+    linkdn = models.URLField(default="linkdn")
+
 
     def __str__(self):
         return u"Site Configuration"
