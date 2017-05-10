@@ -10,7 +10,12 @@ class SiteConfiguration(APIView):
 
     def get(self, request, format=None):
         return Response({
-            'name': config.site_name,
-            'default_description': config.default_description,
-            'default_preview': config.default_preview.url,
+            'title': config.site_name,
+            'description': config.default_description,
+            'preview': config.default_preview.url,
+            'longDescription': config.long_description,
+            'mail': config.mail,
+            'twitter': config.twitter,
+            'github': config.github,
+            'linkdn': config.linkdn,
         })
