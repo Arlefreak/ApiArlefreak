@@ -5,7 +5,7 @@ from . import views
 rest_router = HybridRouter()
 rest_router.add_api_view(
     'config',
-    url(r'^config/$', views.SiteConfiguration.as_view(), 
+    url(r'^config/$', views.SiteConfigurationViewSet.as_view(), 
         name='site_configuration'))
 
 urlpatterns = [

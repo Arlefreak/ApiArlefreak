@@ -3,12 +3,11 @@ from rest_framework.response import Response
 
 from .models import SiteConfiguration
 
-
-class SiteConfiguration(APIView):
-    config = SiteConfiguration.get_solo()
+class SiteConfigurationViewSet(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
+        config = SiteConfiguration.get_solo()
         return Response({
             'title': config.site_name,
             'description': config.default_description,
