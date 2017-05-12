@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from ordered_model.models import OrderedModel
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 from embed_video.fields import EmbedVideoField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, Adjust
@@ -21,12 +22,15 @@ def imageLocation(instance, filename):
         filename_ext.lower(),)
 
 
+class TaggedPost(TaggedItemBase):
+    content_object = models.ForeignKey('Post')
+
 class Post(OrderedModel):
     publish = models.BooleanField(default=False)
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager(through=TaggedPost, blank=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
