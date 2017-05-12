@@ -24,7 +24,7 @@ class ProjectLinkViewSet(viewsets.ModelViewSet):
         queryset = Link.objects.all()
         serializer_class = ProjectLinksSerializer
         filter_backends = (filters.DjangoFilterBackend,)
-        filter_fields = ('project__id',)
+        filter_fields = ('project__id', 'project__slug')
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
@@ -32,7 +32,7 @@ class ProjectImageViewSet(viewsets.ModelViewSet):
         queryset = Image.objects.all()
         serializer_class = ImageSerializer
         filter_backends = (filters.DjangoFilterBackend,)
-        filter_fields = ('project__id','imgType')
+        filter_fields = ('project__id', 'project__slug', 'imgType')
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
