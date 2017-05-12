@@ -17,6 +17,7 @@ class ClientAdmin(admin.ModelAdmin):
     date_hierarchy = 'dateAdquired'
 
     list_display = (
+        'pk',
         'name',
         'dateAdquired',
         'phone',

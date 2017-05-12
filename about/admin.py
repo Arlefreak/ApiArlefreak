@@ -8,6 +8,7 @@ class ImageInline(admin.TabularInline):
 
 class ClientAdmin(OrderedModelAdmin):
     list_display = (
+        'pk',
         'publish',
         'move_up_down_links',
         'name',

@@ -24,6 +24,7 @@ class ProjectAdmin(OrderedModelAdmin):
     date_hierarchy = 'date'
 
     list_display = (
+        'pk',
         'publish',
         'name',
         'smallDescription',
@@ -56,6 +57,7 @@ class ProjectAdmin(OrderedModelAdmin):
 
 class ProjectCategoryAdmin(OrderedModelAdmin):
     list_display = (
+        'pk',
         'name',
         'smallDescription',
         'image_img',
@@ -70,6 +72,7 @@ class ProjectCategoryAdmin(OrderedModelAdmin):
 
 class ImageAdmin(OrderedModelAdmin):
     list_display = (
+        'pk',
         'publish',
         'project',
         'name',
@@ -96,6 +99,7 @@ class ImageAdmin(OrderedModelAdmin):
 
 class VideoAdmin(AdminVideoMixin, OrderedModelAdmin):
     list_display = (
+        'pk',
         'publish',
         'project',
         'name',
@@ -118,6 +122,7 @@ class VideoAdmin(AdminVideoMixin, OrderedModelAdmin):
 
 class LinkAdmin(OrderedModelAdmin):
     list_display = (
+        'pk',
         'name',
         'project',
         'link',
@@ -139,6 +144,7 @@ class LinkAdmin(OrderedModelAdmin):
 
 class LinkCategoryAdmin(admin.ModelAdmin):
     list_display = (
+        'pk',
         'name',
         'image_img',
     )

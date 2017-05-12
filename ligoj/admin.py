@@ -18,6 +18,7 @@ class LinkAdmin(admin.ModelAdmin):
     save_on_top = True
     actions = [LinkSetAct, LinkSetHidden]
     list_display = (
+        'pk',
         'date_created',
         'status',
         'name',
