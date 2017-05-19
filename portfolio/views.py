@@ -34,6 +34,9 @@ class ProjectImageViewSet(viewsets.ModelViewSet):
         filter_backends = (filters.DjangoFilterBackend,)
         filter_fields = ('project__id', 'project__slug', 'imgType')
         permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+        def filter_queryset(self, queryset):
+            queryset = super(ProjectImageViewSet, self).filter_queryset(queryset)
+            return queryset.order_by('order')
 
 
 class ProjectTagViewSet(viewsets.ModelViewSet):
