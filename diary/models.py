@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from ordered_model.models import OrderedModel
+from adminsortable.models import SortableMixin
+from adminsortable.fields import SortableForeignKey
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 from embed_video.fields import EmbedVideoField
@@ -25,7 +26,8 @@ def imageLocation(instance, filename):
 class TaggedPost(TaggedItemBase):
     content_object = models.ForeignKey('Post')
 
-class Post(OrderedModel):
+class Post(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
@@ -66,10 +68,10 @@ class Post(OrderedModel):
     image_img.allow_tags = True
 
 
-class Image(OrderedModel):
+class Image(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    post = models.ForeignKey('Post')
-    order_with_respect_to = 'post'
+    post = SortableForeignKey('Post')
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     image = models.ImageField(upload_to=imageLocation)
@@ -102,10 +104,10 @@ class Image(OrderedModel):
     image_img.allow_tags = True
 
 
-class Video(OrderedModel):
+class Video(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    post = models.ForeignKey('Post')
-    order_with_respect_to = 'Post'
+    post = SortableForeignKey('Post')
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     video = EmbedVideoField()

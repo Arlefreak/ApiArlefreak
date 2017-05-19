@@ -1,16 +1,15 @@
 from django.contrib import admin
 from .models import Entry, Image
-from ordered_model.admin import OrderedModelAdmin
+from adminsortable.admin import SortableAdmin, SortableTabularInline
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableTabularInline):
     model = Image
     extra = 0
 
-class ClientAdmin(OrderedModelAdmin):
+class ClientAdmin(SortableAdmin):
     list_display = (
         'pk',
         'publish',
-        'move_up_down_links',
         'name',
         'text',
         'dateCreated',

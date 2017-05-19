@@ -2,7 +2,8 @@ import os
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, Adjust
-from ordered_model.models import OrderedModel
+from adminsortable.models import SortableMixin
+from adminsortable.fields import SortableForeignKey
 from django.template.defaultfilters import slugify
 
 def imageLocation(instance, filename):
@@ -13,7 +14,8 @@ def imageLocation(instance, filename):
         now().strftime("%Y%m%d%H%M%S"),
         filename_ext.lower(),)
 
-class Entry(OrderedModel):
+class Entry(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
     name = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
@@ -30,9 +32,10 @@ class Entry(OrderedModel):
         self.slug = slugify(self.name)
         super(Entry, self).save(*args, **kwargs)
 
-class Image(OrderedModel):
+class Image(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    entry = models.ForeignKey('Entry')
+    entry = SortableForeignKey('Entry')
     order_with_respect_to = 'entry'
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)

@@ -20,7 +20,7 @@ ADMINS = (('Arlefreak', 'hi@arlefreak.com'),)
 # Application definition
 
 INSTALLED_APPS = [
-    'ordered_model',
+    'adminsortable',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,14 +142,24 @@ CORS_ORIGIN_ALLOW_ALL = True
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
 AWS_QUERYSTRING_AUTH = False
 AWS_PRELOAD_METADATA = True
 
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-COLLECTFAST_ENABLED = True
+if DEBUG:
+    STATIC_URL = '/static/'
+    STATICFILES_LOCATION = 'static'
+else:
+    COLLECTFAST_ENABLED = True
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'apiArlefreak.custom_storages.StaticStorage'
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+MEDIA_ROOT = 'media'
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'apiArlefreak.custom_storages.MediaStorage'
 
 # Email
 EMAIL_USE_TLS = True

@@ -1,26 +1,26 @@
 from django.contrib import admin
-from ordered_model.admin import OrderedModelAdmin
+from adminsortable.admin import SortableAdmin, SortableTabularInline
 from embed_video.admin import AdminVideoMixin
 from .models import Project, ProjectCategory, Image, Video,\
     Link, LinkCategory
 
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableTabularInline):
     model = Image
     extra = 0
 
 
-class VideoInline(admin.TabularInline):
+class VideoInline(SortableTabularInline):
     model = Video
     extra = 0
 
 
-class LinkInline(admin.TabularInline):
+class LinkInline(SortableTabularInline):
     model = Link
     extra = 0
 
 
-class ProjectAdmin(OrderedModelAdmin):
+class ProjectAdmin(SortableAdmin):
     date_hierarchy = 'date'
 
     list_display = (
@@ -31,7 +31,6 @@ class ProjectAdmin(OrderedModelAdmin):
         'category',
         'image_img',
         'date',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',
@@ -55,13 +54,12 @@ class ProjectAdmin(OrderedModelAdmin):
     ]
 
 
-class ProjectCategoryAdmin(OrderedModelAdmin):
+class ProjectCategoryAdmin(SortableAdmin):
     list_display = (
         'pk',
         'name',
         'smallDescription',
         'image_img',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',
@@ -70,7 +68,7 @@ class ProjectCategoryAdmin(OrderedModelAdmin):
     )
 
 
-class ImageAdmin(OrderedModelAdmin):
+class ImageAdmin(SortableAdmin):
     list_display = (
         'pk',
         'publish',
@@ -79,7 +77,6 @@ class ImageAdmin(OrderedModelAdmin):
         'caption',
         'imgType',
         'image_img',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',
@@ -97,14 +94,13 @@ class ImageAdmin(OrderedModelAdmin):
     )
 
 
-class VideoAdmin(AdminVideoMixin, OrderedModelAdmin):
+class VideoAdmin(AdminVideoMixin, SortableAdmin):
     list_display = (
         'pk',
         'publish',
         'project',
         'name',
         'caption',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',
@@ -120,14 +116,13 @@ class VideoAdmin(AdminVideoMixin, OrderedModelAdmin):
     )
 
 
-class LinkAdmin(OrderedModelAdmin):
+class LinkAdmin(SortableAdmin):
     list_display = (
         'pk',
         'name',
         'project',
         'link',
         'category',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',

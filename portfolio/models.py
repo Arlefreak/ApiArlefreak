@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from ordered_model.models import OrderedModel
+from adminsortable.models import SortableMixin
+from adminsortable.fields import SortableForeignKey
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 from embed_video.fields import EmbedVideoField
@@ -34,8 +35,35 @@ def videoLocation(instance, filename):
         now().strftime("%Y%m%d%H%M%S"),
         filename_ext.lower(),)
 
+class ProjectCategory(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    name = models.CharField(max_length=140)
+    slug = models.SlugField(editable=False)
+    smallDescription = models.CharField(max_length=140, blank=True)
+    description = models.TextField(blank=True)
+    image = models.ImageField(null=True, blank=True)
 
-class Project(OrderedModel):
+    class Meta:
+        ordering = ['order', 'name']
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(ProjectCategory, self).save(*args, **kwargs)
+
+    def image_img(self):
+        if self.image:
+            return u'<img src="%s" style="width: 100px;'\
+                ' height: auto; display: block;"/>' % self.image.url
+        else:
+            return 'No Image'
+    image_img.short_description = 'Image'
+    image_img.allow_tags = True
+
+class Project(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
     name = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
@@ -82,38 +110,10 @@ class Project(OrderedModel):
     image_img.short_description = 'Image'
     image_img.allow_tags = True
 
-
-class ProjectCategory(OrderedModel):
-    name = models.CharField(max_length=140)
-    slug = models.SlugField(editable=False)
-    smallDescription = models.CharField(max_length=140, blank=True)
-    description = models.TextField(blank=True)
-    image = models.ImageField(null=True, blank=True)
-
-    class Meta:
-        ordering = ['order', 'name']
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(ProjectCategory, self).save(*args, **kwargs)
-
-    def image_img(self):
-        if self.image:
-            return u'<img src="%s" style="width: 100px;'\
-                ' height: auto; display: block;"/>' % self.image.url
-        else:
-            return 'No Image'
-    image_img.short_description = 'Image'
-    image_img.allow_tags = True
-
-
-class Image(OrderedModel):
+class Image(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    project = models.ForeignKey('Project')
-    order_with_respect_to = 'project'
+    project = SortableForeignKey('Project')
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     image = models.ImageField(upload_to=imageLocation)
@@ -146,10 +146,10 @@ class Image(OrderedModel):
     image_img.allow_tags = True
 
 
-class Video(OrderedModel):
+class Video(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    project = models.ForeignKey('Project')
-    order_with_respect_to = 'project'
+    project = SortableForeignKey('Project')
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     video = EmbedVideoField()
@@ -162,12 +162,12 @@ class Video(OrderedModel):
         return self.name
 
 
-class Link(OrderedModel):
+class Link(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     name = models.CharField(max_length=140)
-    project = models.ForeignKey('Project')
-    order_with_respect_to = 'project'
+    project = SortableForeignKey('Project')
     link = models.URLField()
-    category = models.ForeignKey('LinkCategory')
+    category = SortableForeignKey('LinkCategory')
 
     class Meta:
         ordering = ['order', 'name']

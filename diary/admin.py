@@ -1,24 +1,23 @@
 from django.contrib import admin
-from ordered_model.admin import OrderedModelAdmin
+from adminsortable.admin import SortableAdmin, SortableTabularInline
 from embed_video.admin import AdminVideoMixin
 from .models import Post, Image, Video
 
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableTabularInline):
     model = Image
     extra = 0
 
 
-class VideoInline(admin.TabularInline):
+class VideoInline(SortableTabularInline):
     model = Video
     extra = 0
 
 
-class PostAdmin(OrderedModelAdmin):
+class PostAdmin(SortableAdmin):
     list_display = (
         'pk',
         'publish',
-        'move_up_down_links',
         'title',
         'dateCreated',
         'image_img',
@@ -41,14 +40,13 @@ class PostAdmin(OrderedModelAdmin):
     ]
 
 
-class ImageAdmin(OrderedModelAdmin):
+class ImageAdmin(SortableAdmin):
     list_display = (
         'publish',
         'post',
         'name',
         'caption',
         'image_img',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',
@@ -65,13 +63,12 @@ class ImageAdmin(OrderedModelAdmin):
     )
 
 
-class VideoAdmin(AdminVideoMixin, OrderedModelAdmin):
+class VideoAdmin(AdminVideoMixin, SortableAdmin):
     list_display = (
         'publish',
         'post',
         'name',
         'caption',
-        'move_up_down_links',
     )
     list_display_links = (
         'name',
