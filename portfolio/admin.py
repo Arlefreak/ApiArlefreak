@@ -25,6 +25,7 @@ class ProjectAdmin(SortableAdmin):
 
     list_display = (
         'pk',
+        'order',
         'publish',
         'name',
         'smallDescription',
@@ -57,6 +58,7 @@ class ProjectAdmin(SortableAdmin):
 class ProjectCategoryAdmin(SortableAdmin):
     list_display = (
         'pk',
+        'order',
         'name',
         'smallDescription',
         'image_img',
@@ -71,6 +73,7 @@ class ProjectCategoryAdmin(SortableAdmin):
 class ImageAdmin(SortableAdmin):
     list_display = (
         'pk',
+        'order',
         'publish',
         'project',
         'name',
@@ -97,6 +100,7 @@ class ImageAdmin(SortableAdmin):
 class VideoAdmin(AdminVideoMixin, SortableAdmin):
     list_display = (
         'pk',
+        'order',
         'publish',
         'project',
         'name',
@@ -119,6 +123,7 @@ class VideoAdmin(AdminVideoMixin, SortableAdmin):
 class LinkAdmin(SortableAdmin):
     list_display = (
         'pk',
+        'order',
         'name',
         'project',
         'link',
@@ -140,6 +145,7 @@ class LinkAdmin(SortableAdmin):
 class LinkCategoryAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
+        'order',
         'name',
         'image_img',
     )
