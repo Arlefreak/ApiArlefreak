@@ -26,8 +26,7 @@ def imageLocation(instance, filename):
 class TaggedPost(TaggedItemBase):
     content_object = models.ForeignKey('Post')
 
-class Post(SortableMixin):
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+class Post(models.Model):
     publish = models.BooleanField(default=False)
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
@@ -36,7 +35,7 @@ class Post(SortableMixin):
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
-        ordering = ['-dateCreated', 'order', 'title']
+        ordering = ['-dateCreated', 'title']
 
     def __str__(self):
         return self.title

@@ -145,7 +145,6 @@ class LinkAdmin(SortableAdmin):
 class LinkCategoryAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
-        'order',
         'name',
         'image_img',
     )
