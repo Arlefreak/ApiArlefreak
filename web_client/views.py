@@ -13,6 +13,7 @@ class SiteConfigurationViewSet(APIView):
             'description': config.default_description,
             'preview': config.default_preview.url,
             'longDescription': config.long_description,
+            'subscribeDescription': config.email_subscription,
             'mail': config.mail,
             'twitter': config.twitter,
             'github': config.github,
