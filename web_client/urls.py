@@ -1,13 +1,17 @@
-from .custom_routers import HybridRouter
+# from .custom_routers import HybridRouter
+from rest_framework import routers
 from django.conf.urls import url, include
 from . import views
 
-rest_router = HybridRouter()
-rest_router.add_api_view(
-    'config',
-    url(r'^config/$', views.SiteConfigurationViewSet.as_view(), 
-        name='site_configuration'))
+# router = HybridRouter()
+# router.add_api_view(
+#     'config',
+#     url(r'^config/$', views.SiteConfigurationViewSet.as_view(), 
+#         name='site_configuration'))
+
+router = routers.DefaultRouter()
+router.register(r'^config', views.SiteConfigurationViewSet)
 
 urlpatterns = [
-    url(r'^', include(rest_router.urls), name='rest_api'),    
+    url(r'^', include(router.urls)),
 ]
