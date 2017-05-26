@@ -6,12 +6,14 @@ from .models import Post, Image, TaggedPost
 class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField(required=False)
     class Meta:
+        fields = '__all__'
         model = Post
 
 class ImageSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(read_only=True)
     thumbnailBW = serializers.ImageField(read_only=True)
     class Meta:
+        fields = '__all__'
         model = Image
 
 class PostTagSerializer(serializers.ModelSerializer):

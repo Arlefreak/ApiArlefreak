@@ -10,19 +10,23 @@ from taggit.models import Tag
 class ProjectSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField(required=False)
     class Meta:
+        fields = '__all__'
         model = Project
 
 class ProjectCategorySerializer(serializers.ModelSerializer):
     class Meta:
+        fields = '__all__'
         model = ProjectCategory
 
 class LinkCategorySerializer(serializers.ModelSerializer):
     class Meta:
+        fields = '__all__'
         model = LinkCategory
 
 class ProjectLinksSerializer(serializers.ModelSerializer):
     category = LinkCategorySerializer(read_only=True)
     class Meta:
+        fields = '__all__'
         model = Link
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -30,6 +34,7 @@ class ImageSerializer(serializers.ModelSerializer):
     thumbnailBW = serializers.ImageField(read_only=True)
     project = serializers.SlugRelatedField(read_only=True, slug_field='slug')
     class Meta:
+        fields = '__all__'
         model = Image
 
 class ProjectTagSerializer(serializers.ModelSerializer, ):
