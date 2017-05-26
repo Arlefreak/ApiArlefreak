@@ -81,7 +81,7 @@ class PodcastFeed(Feed):
             'author': item.podcast.author,
             'duration': str(item.duration),
             'explicit': u'no',
-            'audio_url': item.file_mp3.url,
+            'audio_url': item.audio_mp3.url,
             'audio_type': item.audio_type,
             'audio_size': item.audio_size,
         }

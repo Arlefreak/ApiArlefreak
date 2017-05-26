@@ -1,4 +1,4 @@
-import os
+import os.path
 from django.db import models
 from django.template.defaultfilters import slugify
 from adminsortable.models import SortableMixin
@@ -8,19 +8,26 @@ from taggit.models import TaggedItemBase
 from django.urls import reverse
 
 def imageLocation(instance, filename):
-    from django.utils.timezone import now
+    return 'image/'
+def audioLocation(instance, filename):
+    return 'audio/'
+
+def upload_to_podcast_cover(instance, filename):
     filename_base, filename_ext = os.path.splitext(filename)
-    return 'images/%s%s%s' % (
-        filename_base,
-        now().strftime("%Y%m%d%H%M%S"),
+    return 'podcast/covers/%s%s' % (
+        instance.slug,
         filename_ext.lower(),)
 
-def audioLocation(instance, filename):
-    from django.utils.timezone import now
+def upload_to_episode_cover(instance, filename):
     filename_base, filename_ext = os.path.splitext(filename)
-    return 'audio/%s%s%s' % (
-        filename_base,
-        now().strftime("%Y%m%d%H%M%S"),
+    return 'podcast/episodes/covers/%s%s' % (
+        instance.slug,
+        filename_ext.lower(),)
+
+def upload_to_episode_audio(instance, filename):
+    filename_base, filename_ext = os.path.splitext(filename)
+    return 'podcast/episodes/audios/%s%s' % (
+        instance.slug,
         filename_ext.lower(),)
 
 class TaggedPodcast(TaggedItemBase):
@@ -38,11 +45,15 @@ class Podcast(SortableMixin):
     child_category = models.CharField(max_length=140)
     language = models.CharField(max_length=10)
     tags = TaggableManager(through=TaggedPodcast, blank=True)
-    image = models.ImageField(upload_to=imageLocation)
+    image = models.ImageField(upload_to=upload_to_podcast_cover)
+    iTunesURL = models.URLField(blank=True, null=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
         ordering = ['order', '-dateCreated']
+
+    def feed(self):
+        return 'https://api.ellugar.co%s' % reverse('podcast-feed-rss', kwargs={ 'podcast_slug': self.slug })
 
     def category(self):
         return '%s/%s' % (self.parent_category, self.child_category)
@@ -51,7 +62,7 @@ class Podcast(SortableMixin):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('podcast-feed-rss', args=[self.slug])
+        return 'https://ellugar.co/podcasts/%s/' % (self.slug)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -61,13 +72,14 @@ class Episode(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     podcast = SortableForeignKey(Podcast)
     duration = models.DurationField()
-    file_mp3 = models.FileField(upload_to=audioLocation)
+    audio_mp3 = models.FileField(upload_to=upload_to_episode_audio)
+    audio_ogg = models.FileField(upload_to=upload_to_episode_audio, blank=True)
     audio_type = models.CharField(max_length=20)
     audio_size = models.CharField(max_length=140)
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
-    image = models.ImageField(upload_to=imageLocation)
+    image = models.ImageField(upload_to=upload_to_episode_cover)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
@@ -78,7 +90,22 @@ class Episode(SortableMixin):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Episode, self).save(*args, **kwargs)
+        if self.pk is None:
+            saved_audio_mp3 = self.audio_mp3
+            saved_audio_ogg = self.audio_ogg
+            saved_image = self.image
+
+            self.audio_mp3 = None
+            self.audio_ogg = None
+            self.image = None
+
+            super(Episode, self).save(*args, **kwargs)
+
+            self.audio_mp3 = saved_audio_mp3
+            self.audio_ogg = saved_audio_ogg
+            self.image = saved_image
+
+        super(Video, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return self.file_mp3.url
+        return 'https://ellugar.co/podcasts/%s/%s' % (self.podcast.slug, self.slug)

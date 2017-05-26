@@ -7,6 +7,7 @@ from taggit_serializer.serializers \
 
 class PodcastSerializer(serializers.ModelSerializer):
     tags = TagListSerializerField(required=False)
+    feed = serializers.ReadOnlyField()
     class Meta:
         fields = '__all__'
         model = Podcast
