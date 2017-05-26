@@ -66,6 +66,11 @@ class Podcast(SortableMixin):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        if self.pk is None:
+            saved_image = self.image
+            super(Podcast, self).save(*args, **kwargs)
+            self.image = saved_image
+
         super(Podcast, self).save(*args, **kwargs)
 
 class Episode(SortableMixin):
@@ -105,7 +110,7 @@ class Episode(SortableMixin):
             self.audio_ogg = saved_audio_ogg
             self.image = saved_image
 
-        super(Video, self).save(*args, **kwargs)
+        super(Episode, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return 'https://ellugar.co/podcasts/%s/%s' % (self.podcast.slug, self.slug)
