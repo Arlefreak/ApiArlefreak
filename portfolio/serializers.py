@@ -5,8 +5,6 @@ from taggit_serializer.serializers \
 from .models import Project, ProjectCategory, Link,\
     LinkCategory, Image, TaggedProject
 
-from taggit.models import Tag
-
 class ProjectSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField(required=False)
     class Meta:
