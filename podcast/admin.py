@@ -12,6 +12,13 @@ class PodcastAdmin(SortableAdmin):
         'slug',
         'category'
     ]
+    list_display_links = [
+        'pk',
+        'order',
+        'title',
+        'slug',
+        'category'
+    ]
 
 @admin.register(Episode)
 class PodcastAdmin(SortableAdmin):
