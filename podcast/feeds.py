@@ -84,7 +84,7 @@ class PodcastFeed(Feed):
             'explicit': u'no',
             'audio_url': item.audio_mp3.url,
             'audio_type': item.audio_type,
-            'audio_size': item.audio_size,
+            'audio_size': str(item.audio_size),
         }
 
     def get_object(self, request, podcast_slug):
@@ -113,7 +113,7 @@ class PodcastFeed(Feed):
         return obj.small_text
 
     def item_pubdate(self, item):
-        return datetime.combine(item.dateCreated, time()).strftime("%d. %B %Y")
+        return datetime.combine(item.dateCreated, time())
 
 class AtomPodcastFeed(PodcastFeed):
     feed_type = Atom1Feed
