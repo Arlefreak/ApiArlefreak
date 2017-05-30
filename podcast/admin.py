@@ -37,6 +37,7 @@ class EpisodeAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
     list_display = [
         'pk',
         'slug',
+        'podcast',
         'duration',
         'text',
         'admin_image',
@@ -44,7 +45,11 @@ class EpisodeAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
     list_display_links = [
         'pk',
         'slug',
+        'podcast',
         'duration',
         'text',
         'admin_image',
     ]
+    list_filter = (
+        'podcast',
+    )

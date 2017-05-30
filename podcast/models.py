@@ -47,13 +47,17 @@ class Podcast(SortableMixin):
     tags = TaggableManager(through=TaggedPodcast, blank=True)
     image = models.ImageField(upload_to=upload_to_podcast_cover)
     iTunesURL = models.URLField(blank=True, null=True)
+    feedBurner = models.URLField(blank=True, null=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
     class Meta:
         ordering = ['order', '-dateCreated']
 
     def feed(self):
-        return 'https://api.ellugar.co%s' % reverse('podcast-feed-rss', kwargs={ 'podcast_slug': self.slug })
+        if(self.feedBurner):
+            return self.feedBurner
+        else:
+            return 'https://api.ellugar.co%s' % reverse('podcast-feed-rss', kwargs={ 'podcast_slug': self.slug })
 
     def category(self):
         return '%s/%s' % (self.parent_category, self.child_category)
