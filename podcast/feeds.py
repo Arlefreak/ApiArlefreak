@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from datetime import datetime, time
 from .models import *
+import locale
 
 class iTunesPodcastsFeedGenerator(Rss201rev2Feed):
     def rss_attributes(self):
@@ -42,11 +43,11 @@ class iTunesPodcastsFeedGenerator(Rss201rev2Feed):
         handler.addQuickElement(u'itunes:duration', item['duration'])
         handler.addQuickElement(u'itunes:explicit', item['explicit'])
         handler.addQuickElement(u'itunes:author', item['author'])
-        handler.startElement(u"image", {})
-        handler.addQuickElement(u'url', item['iTunes_image_url'])
-        handler.addQuickElement(u'title', item['title'])
-        handler.addQuickElement(u'link', item['link'])
-        handler.endElement(u"image")
+        # handler.startElement(u"image", {})
+        # handler.addQuickElement(u'url', item['iTunes_image_url'])
+        # handler.addQuickElement(u'title', item['title'])
+        # handler.addQuickElement(u'link', item['link'])
+        # handler.endElement(u"image")
         handler.addQuickElement(u'itunes:image', None,
                                 {'href': item['iTunes_image_url']})
         handler.addQuickElement(u'enclosure', None, 
@@ -112,7 +113,7 @@ class PodcastFeed(Feed):
         return obj.small_text
 
     def item_pubdate(self, item):
-        return datetime.combine(item.dateCreated, time())
+        return datetime.combine(item.dateCreated, time()).strftime("%d. %B %Y")
 
 class AtomPodcastFeed(PodcastFeed):
     feed_type = Atom1Feed

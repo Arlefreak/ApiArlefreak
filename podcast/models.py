@@ -84,7 +84,7 @@ class Episode(SortableMixin):
     audio_mp3 = models.FileField(upload_to=upload_to_episode_audio)
     audio_ogg = models.FileField(upload_to=upload_to_episode_audio, blank=True)
     audio_type = models.CharField(max_length=20)
-    audio_size = models.CharField(max_length=140)
+    audio_size = models.PositiveIntegerField(default=1)
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
