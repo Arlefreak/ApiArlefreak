@@ -44,11 +44,7 @@ class iTunesPodcastsFeedGenerator(Rss201rev2Feed):
         handler.addQuickElement(u'itunes:explicit', item['explicit'])
         handler.addQuickElement(u'itunes:author', item['author'])
         handler.addQuickElement(u'itunes:subtitle', item['subtitle'])
-        # handler.startElement(u"image", {})
-        # handler.addQuickElement(u'url', item['iTunes_image_url'])
-        # handler.addQuickElement(u'title', item['title'])
-        # handler.addQuickElement(u'link', item['link'])
-        # handler.endElement(u"image")
+        handler.addQuickElement(u'itunes:summary', item['item_description'])
         handler.addQuickElement(u'itunes:image', None,
                                 {'href': item['iTunes_image_url']})
         handler.addQuickElement(u'enclosure', None, 
@@ -87,6 +83,7 @@ class PodcastFeed(Feed):
             'audio_type': item.audio_type,
             'audio_size': str(item.audio_size),
             'subtitle': item.small_text,
+            'item_description': item.text,
         }
 
     def get_object(self, request, podcast_slug):
