@@ -88,6 +88,7 @@ class Episode(SortableMixin):
     title = models.CharField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
+    small_text = models.CharField(max_length=255)
     image = models.ImageField(upload_to=upload_to_episode_cover)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
