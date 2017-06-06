@@ -15,7 +15,7 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['.arlefreak.com', '.ellugar.co', 'api.ellugar.co']
 if(DEBUG):
     ALLOWED_HOSTS = ['*']
-ADMINS = (('Arlefreak', 'hi@arlefreak.com'),)
+    ADMINS = (('Arlefreak', 'hi@arlefreak.com'),)
 
 # Application definition
 
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'imagekit',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     'embed_video',
     'taggit',
     'taggit_serializer',
@@ -131,6 +132,7 @@ USE_L10N = True
 USE_TZ = True
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
