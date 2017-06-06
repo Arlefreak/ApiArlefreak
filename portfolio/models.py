@@ -167,7 +167,7 @@ class Link(SortableMixin):
     name = models.CharField(max_length=140)
     project = SortableForeignKey('Project')
     link = models.URLField()
-    category = SortableForeignKey('LinkCategory')
+    category = models.ForeignKey('LinkCategory')
 
     class Meta:
         ordering = ['order', 'name']
