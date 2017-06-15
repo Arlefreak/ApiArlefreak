@@ -76,6 +76,7 @@ class EpisodeAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
     fieldsets = (
         (None, {
             'fields': (
+                'podcast',
                 'title',
                 'image'
             )
