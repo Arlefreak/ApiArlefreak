@@ -16,30 +16,96 @@ class ViewOnSiteMixin(object):
 
 @admin.register(Podcast)
 class PodcastAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
+    save_as = True
+    fieldsets = (
+        (None, {
+            'fields': (
+                'title',
+                'image'
+            )
+        }),
+        ('Author', {
+            'fields': (
+                'author',
+                'author_mail'
+            )
+        }),
+        ('Categories', {
+            'fields': (
+                'parent_category',
+                'child_category',
+            )
+        }),
+        (None, {
+            'fields': (
+                'language',
+                'tags',
+            )
+        }),
+        ('Links', {
+            'fields': (
+                'iTunesURL',
+                'feedBurner',
+            )
+        }),
+        ('Description', {
+            'fields': (
+                'small_text',
+                'text',
+            ),
+        }),
+    )
     list_display = [
-        'pk',
         'order',
+        'dateCreated',
         'slug',
-        'category',
+        'small_text',
         'admin_image',
     ]
     list_display_links = [
-        'pk',
         'order',
+        'dateCreated',
         'slug',
-        'category',
+        'small_text',
         'admin_image',
     ]
 
 @admin.register(Episode)
 class EpisodeAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
     save_as = True
+    fieldsets = (
+        (None, {
+            'fields': (
+                'title',
+                'image'
+            )
+        }),
+        ('Files', {
+            'fields': (
+                'audio_mp3',
+                'audio_ogg',
+            )
+        }),
+        ('File Info', {
+            'fields': (
+                'audio_type',
+                'duration',
+                'audio_size',
+            )
+        }),
+        ('Description', {
+            'fields': (
+                'small_text',
+                'text',
+            )
+        }),
+    )
     list_display = [
         'pk',
         'slug',
         'podcast',
         'duration',
-        'text',
+        'plain_text',
         'admin_image',
     ]
     list_display_links = [
@@ -47,7 +113,6 @@ class EpisodeAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
         'slug',
         'podcast',
         'duration',
-        'text',
         'admin_image',
     ]
     list_filter = (

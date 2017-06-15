@@ -83,7 +83,7 @@ class PodcastFeed(Feed):
             'audio_type': item.audio_type,
             'audio_size': str(item.audio_size),
             'subtitle': item.small_text,
-            'item_description': item.text,
+            'item_description': item.plain_text(),
         }
 
     def get_object(self, request, podcast_slug):
@@ -96,7 +96,7 @@ class PodcastFeed(Feed):
         return obj.get_absolute_url()
 
     def description(self, obj):
-        return obj.text
+        return obj.plain_text()
 
     # TODO: Override settings language
     def language (self,obj):

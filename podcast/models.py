@@ -53,6 +53,15 @@ class Podcast(SortableMixin):
     class Meta:
         ordering = ['order', '-dateCreated']
 
+    def plain_text(self):
+        import misaka as m
+        import html2text
+        h = html2text.HTML2Text()
+        h.ignore_links = True
+        html_text = m.html(self.text)
+        plain = h.handle(html_text)
+        return plain
+
     def feed(self):
         if(self.feedBurner):
             return self.feedBurner
@@ -97,6 +106,19 @@ class Episode(SortableMixin):
 
     def __str__(self):
         return self.title
+
+    def plain_text(self):
+        import misaka as m
+        import html2text
+        h = html2text.HTML2Text()
+        h.ignore_links = True
+        h.ignore_images = True
+        h.ul_item_mark = '-'
+        h.inline_links = False
+        h.ignore_emphasis = True
+        html_text = m.html(self.text)
+        plain = h.handle(html_text)
+        return plain
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
