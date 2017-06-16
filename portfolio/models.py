@@ -134,7 +134,7 @@ class Image(SortableMixin):
         ordering = ['order', 'dateCreated']
 
     def __str__(self):
-        return self.name
+        return '%s-%s-%s' % (self.project.slug, self.project.imgType, self.name)
 
     def image_img(self):
         if self.image:
