@@ -5,4 +5,5 @@ from .models import Project
 @receiver(post_save, sender=Project)
 def init_new_project(sender, instance, signal, created, **kwargs):
     if created:
-        instance.top()
+        pass
+        # instance.top()
