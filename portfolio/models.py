@@ -113,7 +113,7 @@ class Project(SortableMixin):
 class Image(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    project = SortableForeignKey('Project')
+    project = models.ForeignKey('Project')
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     image = models.ImageField(upload_to=imageLocation)
