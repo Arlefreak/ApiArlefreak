@@ -15,6 +15,7 @@ class SiteConfiguration(SingletonModel):
     default_description = models.CharField(max_length=140, default='description')
     default_preview = models.ImageField(upload_to=imageLocation)
     long_description = models.TextField(default="description")
+    cv = models.TextField(default="cv")
     email_subscription = models.TextField(default="subscribe")
     mail = models.EmailField(default="afk@ellugar.co")
     twitter = models.URLField(default="twitter")
