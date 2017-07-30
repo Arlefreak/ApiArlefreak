@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ligoj',
     'podcast',
     'web_client',
+    'cv',
 ]
 
 MIDDLEWARE_CLASSES = [
