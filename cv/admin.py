@@ -34,12 +34,12 @@ class CVAdmin(SortableAdmin):
 @admin.register(Section)
 class SectionAdmin(SortableAdmin):
     list_display = (
-        'pk',
+        'order',
         'name',
         'text',
     )
     list_display_links = (
-        'pk',
+        'order',
         'name',
         'text',
     )
