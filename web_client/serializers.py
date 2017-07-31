@@ -14,7 +14,6 @@ class SiteConfigurationSerializer(serializers.ModelSerializer):
             'preview',
             'longDescription',
             'subscribeDescription',
-            'cv',
             'mail',
             'twitter',
             'github',
