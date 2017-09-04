@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'taggit',
     'taggit_serializer',
     'solo',
+    'location_field.apps.DefaultConfig',
     'portfolio',
     'diary',
     'clients',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'podcast',
     'web_client',
     'cv',
+    'nomad',
 ]
 
 MIDDLEWARE_CLASSES = [
