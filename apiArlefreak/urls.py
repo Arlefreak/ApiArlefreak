@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^web_client/', include('web_client.urls')),
     url(r'^podcast/', include('podcast.urls')),
     url(r'^cv/', include('cv.urls')),
+    url(r'^nomad/', include('nomad.urls')),
 ]

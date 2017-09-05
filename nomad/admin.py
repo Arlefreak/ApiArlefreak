@@ -10,7 +10,7 @@ class CityAdmin(admin.ModelAdmin):
          }),
         ('Dates',
          {
-             'fields': ('date_init', 'date_final'),
+             'fields': ('dateCreated',),
          }),
         ('LOC',
          {
@@ -18,15 +18,13 @@ class CityAdmin(admin.ModelAdmin):
          }),
     )
     list_display = (
-        'date_init',
-        'date_final',
+        'dateCreated',
         'city',
         'location',
         'title',
     )
     list_display_links = (
-        'date_init',
-        'date_final',
+        'dateCreated',
         'city',
         'location',
     )
