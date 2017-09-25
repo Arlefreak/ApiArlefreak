@@ -20,7 +20,7 @@ django-ordered-model==1.4.1
 django-solo==1.1.2
 django-storages-redux==1.3.2
 django-taggit==0.22.1
--e git://github.com/Arlefreak/django-taggit-serializer.git@1334108a8e7bc3d9cf0b4579aac146469783c371#egg=django_taggit_serializer
+-e git://github.com/Arlefreak/django-taggit-serializer.git#egg=django_taggit_serializer
 djangorestframework==3.6.3
 greenlet==0.4.12
 gunicorn==19.7.1
