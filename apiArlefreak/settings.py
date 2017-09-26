@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'taggit_serializer',
     'solo',
     'location_field.apps.DefaultConfig',
+    'colorful',
     'portfolio',
     'diary',
     'clients',

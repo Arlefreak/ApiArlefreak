@@ -1,13 +1,16 @@
 from django.contrib import admin
 from .models import *
 
+@admin.register(Trip)
+class TripAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'color',
+    )
+
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None,
-         {
-             'fields': ('title',),
-         }),
         ('Dates',
          {
              'fields': ('dateCreated',),
@@ -21,13 +24,12 @@ class CityAdmin(admin.ModelAdmin):
         'dateCreated',
         'city',
         'location',
-        'title',
     )
     list_display_links = (
         'dateCreated',
         'city',
         'location',
     )
-    list_editable = [
-        'title',
-    ]
+    # list_editable = [
+    #     'title',
+    # ]
