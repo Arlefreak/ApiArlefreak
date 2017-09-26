@@ -1,9 +1,15 @@
 from django.shortcuts import render
-from .models import City
-from .serializers import CitySerializer
+from .models import City, Trip
+from .serializers import CitySerializer, TripSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import filters
+
+class TripViewSet(viewsets.ModelViewSet):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
