@@ -15,7 +15,7 @@ STATUS = (
 )
 
 class TaggedLink(TaggedItemBase):
-    content_object = models.ForeignKey('Link')
+    content_object = models.ForeignKey('Link', on_delete=models.CASCADE)
 
 class Link(models.Model):
     link = models.URLField()

@@ -37,5 +37,5 @@ class Section(SortableMixin):
 
 class SectionOrder(models.Model):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
-    cv = models.ForeignKey(CV)
-    section = models.ForeignKey(Section)
+    cv = models.ForeignKey(CV, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)

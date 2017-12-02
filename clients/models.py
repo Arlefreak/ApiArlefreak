@@ -49,7 +49,7 @@ class Client(models.Model):
             return 'No phone'
 
 class Payment(models.Model):
-    client = models.ForeignKey('Client')
+    client = models.ForeignKey('Client', on_delete=models.CASCADE)
     name = models.CharField(max_length=140, default="Payment")
     money  = models.FloatField(default=0)
     currency = models.CharField(choices=CURRENCIES, max_length=3, default='MXN')
@@ -70,7 +70,7 @@ class Payment(models.Model):
         return str(self.money)
 
 class Email(models.Model):
-    client = models.ForeignKey('Client')
+    client = models.ForeignKey('Client', on_delete=models.CASCADE)
     name = models.CharField(default="", blank=True, max_length=140)
     email = models.EmailField()
     class Meta:
@@ -80,7 +80,7 @@ class Email(models.Model):
         return self.email
 
 class Phone(models.Model):
-    client = models.ForeignKey('Client')
+    client = models.ForeignKey('Client', on_delete=models.CASCADE)
     name = models.CharField(default="", blank=True, max_length=140)
     phone = models.CharField(validators=[phone_regex], max_length=140)
     class Meta:

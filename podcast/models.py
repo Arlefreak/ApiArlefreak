@@ -31,7 +31,7 @@ def upload_to_episode_audio(instance, filename):
         filename_ext.lower(),)
 
 class TaggedPodcast(TaggedItemBase):
-    content_object = models.ForeignKey('Podcast')
+    content_object = models.ForeignKey('Podcast', on_delete=models.CASCADE)
 
 class Podcast(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
@@ -88,7 +88,7 @@ class Podcast(SortableMixin):
 
 class Episode(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
-    podcast = SortableForeignKey(Podcast)
+    podcast = SortableForeignKey(Podcast, on_delete=models.CASCADE)
     duration = models.DurationField()
     audio_mp3 = models.FileField(upload_to=upload_to_episode_audio)
     audio_ogg = models.FileField(upload_to=upload_to_episode_audio, blank=True)

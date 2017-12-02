@@ -24,7 +24,7 @@ def imageLocation(instance, filename):
 
 
 class TaggedPost(TaggedItemBase):
-    content_object = models.ForeignKey('Post')
+    content_object = models.ForeignKey('Post', on_delete=models.CASCADE)
 
 class Post(models.Model):
     publish = models.BooleanField(default=False)
@@ -70,7 +70,7 @@ class Post(models.Model):
 class Image(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    post = SortableForeignKey('Post')
+    post = SortableForeignKey('Post', on_delete=models.CASCADE)
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     image = models.ImageField(upload_to=imageLocation)
@@ -106,7 +106,7 @@ class Image(SortableMixin):
 class Video(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    post = SortableForeignKey('Post')
+    post = SortableForeignKey('Post', on_delete=models.CASCADE)
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     video = EmbedVideoField()

@@ -3,7 +3,7 @@ from .serializers import ProjectSerializer, ProjectCategorySerializer, \
     ProjectLinksSerializer, ImageSerializer, ProjectTagSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework import filters
+from django_filters import rest_framework as filters
 
 
 class ProjectViewSet(viewsets.ModelViewSet):

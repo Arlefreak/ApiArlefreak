@@ -2,7 +2,7 @@ from .models import Link, TaggedLink
 from .serializers import LinkSerializer, LinkTagSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework import filters
+from django_filters import rest_framework as filters
 
 class LinkViewSet(viewsets.ModelViewSet):
         queryset = Link.objects.all()

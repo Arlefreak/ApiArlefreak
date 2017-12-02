@@ -3,7 +3,7 @@ from .models import City, Trip
 from .serializers import CitySerializer, TripSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework import filters
+from django_filters import rest_framework as filters
 
 class TripViewSet(viewsets.ModelViewSet):
     queryset = Trip.objects.all()
