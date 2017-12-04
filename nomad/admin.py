@@ -19,6 +19,7 @@ class TripAdmin(SortableAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
+    save_as=True;
     fieldsets = (
         (None,
             {
