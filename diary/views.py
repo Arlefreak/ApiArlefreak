@@ -2,7 +2,7 @@ from .models import Post, Image, TaggedPost
 from .serializers import PostSerializer, ImageSerializer, PostTagSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework import filters
+from django_filters import rest_framework as filters
 
 
 class PostViewSet(viewsets.ModelViewSet):

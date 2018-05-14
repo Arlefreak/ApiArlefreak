@@ -21,7 +21,7 @@ class Trip(SortableMixin):
 
 class City(models.Model):
     city = models.CharField(max_length=255)
-    trip = models.ForeignKey('Trip', related_name='cities')
+    trip = models.ForeignKey('Trip', on_delete=models.CASCADE, related_name='cities')
     location = PlainLocationField(based_fields=['city'], zoom=7)
     dateCreated = models.DateField()
     class Meta:

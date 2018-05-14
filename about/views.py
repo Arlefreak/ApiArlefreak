@@ -3,7 +3,7 @@ from .models import Entry, Image
 from .serializers import EntrySerializer, ImageSerializer
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework import filters
+from django_filters import rest_framework as filters
 
 class EntryViewSet(viewsets.ModelViewSet):
         queryset = Entry.objects.all().filter(publish=True)

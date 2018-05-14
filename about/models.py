@@ -35,7 +35,7 @@ class Entry(SortableMixin):
 class Image(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    entry = SortableForeignKey('Entry')
+    entry = SortableForeignKey('Entry', on_delete=models.CASCADE)
     order_with_respect_to = 'entry'
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)

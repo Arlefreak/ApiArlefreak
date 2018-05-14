@@ -16,7 +16,7 @@ IMAGE_TYPE = (
 )
 
 class TaggedProject(TaggedItemBase):
-    content_object = models.ForeignKey('Project')
+    content_object = models.ForeignKey('Project', on_delete=models.CASCADE)
 
 def imageLocation(instance, filename):
     from django.utils.timezone import now
@@ -69,7 +69,7 @@ class Project(SortableMixin):
     slug = models.SlugField(editable=False)
     smallDescription = models.CharField(max_length=140, blank=True)
     description = models.TextField(blank=True)
-    category = models.ForeignKey('ProjectCategory')
+    category = models.ForeignKey('ProjectCategory', on_delete=models.CASCADE)
     tags = TaggableManager(through=TaggedProject)
     date = models.DateField(null=True)
     dateCreated = models.DateField(auto_now_add=True)
@@ -113,7 +113,7 @@ class Project(SortableMixin):
 class Image(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    project = models.ForeignKey('Project')
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     image = models.ImageField(upload_to=imageLocation)
@@ -149,7 +149,7 @@ class Image(SortableMixin):
 class Video(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
-    project = SortableForeignKey('Project')
+    project = SortableForeignKey('Project', on_delete=models.CASCADE)
     name = models.CharField(max_length=140)
     caption = models.CharField(max_length=140, blank=True)
     video = EmbedVideoField()
@@ -165,9 +165,9 @@ class Video(SortableMixin):
 class Link(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     name = models.CharField(max_length=140)
-    project = SortableForeignKey('Project')
+    project = SortableForeignKey('Project', on_delete=models.CASCADE)
     link = models.URLField()
-    category = models.ForeignKey('LinkCategory')
+    category = models.ForeignKey('LinkCategory', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['order', 'name']

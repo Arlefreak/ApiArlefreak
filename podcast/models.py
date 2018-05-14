@@ -31,7 +31,7 @@ def upload_to_episode_audio(instance, filename):
         filename_ext.lower(),)
 
 class TaggedPodcast(TaggedItemBase):
-    content_object = models.ForeignKey('Podcast')
+    content_object = models.ForeignKey('Podcast', on_delete=models.CASCADE)
 
 class Podcast(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
@@ -46,6 +46,8 @@ class Podcast(SortableMixin):
     language = models.CharField(max_length=10)
     tags = TaggableManager(through=TaggedPodcast, blank=True)
     image = models.ImageField(upload_to=upload_to_podcast_cover)
+    website = models.URLField()
+    episodesUrl = models.URLField()
     iTunesURL = models.URLField(blank=True, null=True)
     feedBurner = models.URLField(blank=True, null=True)
     dateCreated = models.DateField(auto_now_add=True)
@@ -75,7 +77,7 @@ class Podcast(SortableMixin):
         return self.title
 
     def get_absolute_url(self):
-        return 'https://ellugar.co/podcasts/%s/' % (self.slug)
+        return self.website
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -88,7 +90,7 @@ class Podcast(SortableMixin):
 
 class Episode(SortableMixin):
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
-    podcast = SortableForeignKey(Podcast)
+    podcast = SortableForeignKey(Podcast, on_delete=models.CASCADE)
     duration = models.DurationField()
     audio_mp3 = models.FileField(upload_to=upload_to_episode_audio)
     audio_ogg = models.FileField(upload_to=upload_to_episode_audio, blank=True)
@@ -140,4 +142,4 @@ class Episode(SortableMixin):
         super(Episode, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return 'https://ellugar.co/podcasts/%s/%s' % (self.podcast.slug, self.slug)
+        return '%s/%s' % (self.podcast.episodesUrl, self.slug)
