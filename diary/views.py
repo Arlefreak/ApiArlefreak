@@ -9,6 +9,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().filter(publish=True)
     serializer_class = PostSerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('tags__name',)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class PostImageViewSet(viewsets.ModelViewSet):
