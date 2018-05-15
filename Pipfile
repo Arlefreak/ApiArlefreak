@@ -26,7 +26,6 @@ django-imagekit = "*"
 django-location-field = "*"
 django-ordered-model = "*"
 django-solo = "*"
-django-storages-redux = "*"
 django-taggit = "*"
 django-taggit-serializer = {git = "git://github.com/Arlefreak/django-taggit-serializer.git", editable = true, ref = "c948c11152f676e1d0893468d4000a6ec6c9ed63"}
 djangorestframework = "*"
@@ -55,6 +54,7 @@ unidecode = "*"
 "urllib3" = "*"
 vine = "*"
 "psycopg2-binary" = "*"
+django-storages = "*"
 
 [dev-packages]
 
