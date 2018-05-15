@@ -141,3 +141,4 @@ sftp-config.json
 .ropeproject/
 *.env
 celerybeat-schedule
+.venv/
