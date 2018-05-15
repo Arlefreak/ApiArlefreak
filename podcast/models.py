@@ -46,6 +46,8 @@ class Podcast(SortableMixin):
     language = models.CharField(max_length=10)
     tags = TaggableManager(through=TaggedPodcast, blank=True)
     image = models.ImageField(upload_to=upload_to_podcast_cover)
+    website = models.URLField()
+    episodesUrl = models.URLField()
     iTunesURL = models.URLField(blank=True, null=True)
     feedBurner = models.URLField(blank=True, null=True)
     dateCreated = models.DateField(auto_now_add=True)
@@ -75,7 +77,7 @@ class Podcast(SortableMixin):
         return self.title
 
     def get_absolute_url(self):
-        return 'https://ellugar.co/podcasts/%s/' % (self.slug)
+        return self.website
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -140,4 +142,4 @@ class Episode(SortableMixin):
         super(Episode, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return 'https://ellugar.co/podcasts/%s/%s' % (self.podcast.slug, self.slug)
+        return '%s/%s' % (self.podcast.episodesUrl, self.slug)

@@ -44,6 +44,8 @@ class PodcastAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
         }),
         ('Links', {
             'fields': (
+                'website',
+                'episodesUrl',
                 'iTunesURL',
                 'feedBurner',
             )
