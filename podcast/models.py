@@ -1,40 +1,62 @@
 import os.path
+
+import html2text
+import misaka as m
+from adminsortable.fields import SortableForeignKey
+from adminsortable.models import SortableMixin
 from django.db import models
 from django.template.defaultfilters import slugify
-from adminsortable.models import SortableMixin
-from adminsortable.fields import SortableForeignKey
+from django.urls import reverse
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
-from django.urls import reverse
+
+htmlConverter = html2text.HTML2Text()
+htmlConverter.ignore_links = True
+htmlConverter.ignore_images = True
+htmlConverter.ul_item_mark = '-'
+htmlConverter.inline_links = False
+htmlConverter.ignore_emphasis = True
+
 
 def imageLocation(instance, filename):
     return 'image/'
+
+
 def audioLocation(instance, filename):
     return 'audio/'
+
 
 def upload_to_podcast_cover(instance, filename):
     filename_base, filename_ext = os.path.splitext(filename)
     return 'podcast/covers/%s%s' % (
         instance.slug,
-        filename_ext.lower(),)
+        filename_ext.lower(),
+    )
+
 
 def upload_to_episode_cover(instance, filename):
     filename_base, filename_ext = os.path.splitext(filename)
     return 'podcast/episodes/covers/%s%s' % (
         instance.slug,
-        filename_ext.lower(),)
+        filename_ext.lower(),
+    )
+
 
 def upload_to_episode_audio(instance, filename):
     filename_base, filename_ext = os.path.splitext(filename)
     return 'podcast/episodes/audios/%s%s' % (
         instance.slug,
-        filename_ext.lower(),)
+        filename_ext.lower(),
+    )
+
 
 class TaggedPodcast(TaggedItemBase):
     content_object = models.ForeignKey('Podcast', on_delete=models.CASCADE)
 
+
 class Podcast(SortableMixin):
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
     title = models.CharField(max_length=140)
     author = models.CharField(max_length=140)
     author_mail = models.EmailField(max_length=140)
@@ -52,23 +74,25 @@ class Podcast(SortableMixin):
     feedBurner = models.URLField(blank=True, null=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
+
     class Meta:
         ordering = ['order', '-dateCreated']
 
     def plain_text(self):
-        import misaka as m
-        import html2text
-        h = html2text.HTML2Text()
-        h.ignore_links = True
         html_text = m.html(self.text)
-        plain = h.handle(html_text)
+        plain = htmlConverter.handle(html_text)
         return plain
 
+    def encoded_text(self):
+        html_text = m.html(self.text)
+        return html_text
+
     def feed(self):
-        if(self.feedBurner):
+        if (self.feedBurner):
             return self.feedBurner
         else:
-            return 'https://api.ellugar.co%s' % reverse('podcast-feed-rss', kwargs={ 'podcast_slug': self.slug })
+            return 'https://api.ellugar.co%s' % reverse(
+                'podcast-feed-rss', kwargs={'podcast_slug': self.slug})
 
     def category(self):
         return '%s/%s' % (self.parent_category, self.child_category)
@@ -88,8 +112,10 @@ class Podcast(SortableMixin):
 
         super(Podcast, self).save(*args, **kwargs)
 
+
 class Episode(SortableMixin):
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
     podcast = SortableForeignKey(Podcast, on_delete=models.CASCADE)
     duration = models.DurationField()
     audio_mp3 = models.FileField(upload_to=upload_to_episode_audio)
@@ -103,6 +129,7 @@ class Episode(SortableMixin):
     image = models.ImageField(upload_to=upload_to_episode_cover)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
+
     class Meta:
         ordering = ['order', '-dateCreated']
 
@@ -110,17 +137,13 @@ class Episode(SortableMixin):
         return self.title
 
     def plain_text(self):
-        import misaka as m
-        import html2text
-        h = html2text.HTML2Text()
-        h.ignore_links = True
-        h.ignore_images = True
-        h.ul_item_mark = '-'
-        h.inline_links = False
-        h.ignore_emphasis = True
         html_text = m.html(self.text)
-        plain = h.handle(html_text)
+        plain = htmlConverter.handle(html_text)
         return plain
+
+    def encoded_text(self):
+        html_text = m.html(self.text)
+        return html_text
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
