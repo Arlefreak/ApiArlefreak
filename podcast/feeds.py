@@ -25,6 +25,8 @@ class ExtendedRSSFeed(Rss201rev2Feed):
         handler.addQuickElement(u'itunes:subtitle', self.feed['subtitle'])
         handler.addQuickElement(u'itunes:author', self.feed['author_name'])
         handler.addQuickElement(u'itunes:summary', self.feed['description'])
+        handler.addQuickElement(u'googleplay:description',
+                                self.feed['description'])
         handler.addQuickElement(u'itunes:explicit',
                                 self.feed['iTunes_explicit'])
         handler.startElement(u"itunes:owner", {})
@@ -53,6 +55,8 @@ class ExtendedRSSFeed(Rss201rev2Feed):
         handler.addQuickElement(u'itunes:author', item['author'])
         handler.addQuickElement(u'itunes:subtitle', item['subtitle'])
         handler.addQuickElement(u'itunes:summary', item['item_description'])
+        handler.addQuickElement(u'googleplay:description',
+                                item['item_description'])
         handler.addQuickElement(u'itunes:image', None,
                                 {'href': item['iTunes_image_url']})
         handler.addQuickElement(
@@ -103,6 +107,7 @@ class PodcastFeed(Feed):
             'audio_size': str(item.audio_size),
             'subtitle': item.small_text,
             'item_description': item.plain_text(),
+            'slug': item.slug,
         }
 
     def get_object(self, request, podcast_slug):
@@ -131,7 +136,7 @@ class PodcastFeed(Feed):
         return obj.small_text
 
     def item_pubdate(self, item):
-        return datetime.combine(item.dateCreated, time())
+        return item.dateCreated
 
 
 class AtomPodcastFeed(PodcastFeed):

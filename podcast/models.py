@@ -128,8 +128,8 @@ class Episode(SortableMixin):
     text = models.TextField()
     small_text = models.CharField(max_length=255)
     image = models.ImageField(upload_to=upload_to_episode_cover)
-    dateCreated = models.DateField(auto_now_add=True)
-    dateUpdated = models.DateField(auto_now=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateUpdated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['order', '-dateCreated']

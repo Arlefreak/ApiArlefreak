@@ -1,11 +1,12 @@
 import os
+
 import environ
+
 root = environ.Path(__file__) - 3
-env = environ.Env(DEBUG=(bool, False),)
+env = environ.Env(DEBUG=(bool, False), )
 environ.Env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 SECRET_KEY = env('SECRET_KEY')
 
@@ -13,9 +14,9 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['.arlefreak.com', '.ellugar.co', 'api.ellugar.co']
-if(DEBUG):
+if (DEBUG):
     ALLOWED_HOSTS = ['*']
-    ADMINS = (('Arlefreak', 'hi@arlefreak.com'),)
+    ADMINS = (('Arlefreak', 'hi@arlefreak.com'), )
 
 # Application definition
 
@@ -81,10 +82,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'apiArlefreak.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
 
 DATABASES = {
     'default': {
@@ -97,29 +96,31 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.'
+        'NAME':
+        'django.contrib.auth.password_validation.'
         'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
+        'NAME':
+        'django.contrib.auth.password_validation.'
         'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
+        'NAME':
+        'django.contrib.auth.password_validation.'
         'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
+        'NAME':
+        'django.contrib.auth.password_validation.'
         'NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -128,6 +129,8 @@ LANGUAGE_CODE = 'es-mx'
 
 TIME_ZONE = 'UTC'
 
+DATETIME_FORMAT = '%d-%m-%Y %H:%M:S'
+
 USE_I18N = True
 
 USE_L10N = True
@@ -135,7 +138,8 @@ USE_L10N = True
 USE_TZ = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_FILTER_BACKENDS':
+    ('django_filters.rest_framework.DjangoFilterBackend', ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -160,7 +164,8 @@ else:
     COLLECTFAST_ENABLED = True
     STATICFILES_LOCATION = 'static'
     STATICFILES_STORAGE = 'apiArlefreak.custom_storages.StaticStorage'
-    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN,
+                                     STATICFILES_LOCATION)
 
 MEDIA_ROOT = 'media'
 MEDIAFILES_LOCATION = 'media'

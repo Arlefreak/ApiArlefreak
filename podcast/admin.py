@@ -93,6 +93,7 @@ class EpisodeAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
                 'audio_type',
                 'duration',
                 'audio_size',
+                'dateCreated',
             )
         }),
         ('Description', {
