@@ -21,7 +21,6 @@ class ExtendedRSSFeed(Rss201rev2Feed):
 
     def add_root_elements(self, handler):
         super(ExtendedRSSFeed, self).add_root_elements(handler)
-        handler.addQuickElement(u'pubDate', self.feed['pub_date'])
         handler.addQuickElement(u'itunes:subtitle', self.feed['subtitle'])
         handler.addQuickElement(u'itunes:author', self.feed['author_name'])
         handler.addQuickElement(u'itunes:summary', self.feed['description'])
@@ -82,7 +81,6 @@ class PodcastFeed(Feed):
             # 'iTunes_keywords': str(obj.tags),
             'parent_category': obj.parent_category,
             'child_category': obj.child_category,
-            'pub_date': obj.dateCreated
         }
 
         return extra_args
