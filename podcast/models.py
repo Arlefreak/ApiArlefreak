@@ -73,8 +73,8 @@ class Podcast(SortableMixin):
     iTunesURL = models.URLField(blank=True, null=True)
     googlePodcast = models.URLField(blank=True, null=True)
     feedBurner = models.URLField(blank=True, null=True)
-    dateCreated = models.DateField(auto_now_add=True)
-    dateUpdated = models.DateField(auto_now=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateUpdated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['order', '-dateCreated']

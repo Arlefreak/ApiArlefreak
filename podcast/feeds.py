@@ -138,6 +138,9 @@ class PodcastFeed(Feed):
     def item_pubdate(self, item):
         return item.dateCreated
 
+    def item_updateddate(self, item):
+        return item.dateUpdated
+
 
 class AtomPodcastFeed(PodcastFeed):
     feed_type = Atom1Feed
