@@ -72,25 +72,17 @@ class ExtendedRSSFeed(Rss201rev2Feed):
 
 class PodcastFeed(Feed):
     feed_type = ExtendedRSSFeed
-
     iTunes_explicit = u'no'
 
     def feed_extra_kwargs(self, obj):
         extra_args = {
-            'iTunes_email':
-            obj.author_mail,
-            'iTunes_explicit':
-            u'no',
-            'iTunes_image_url':
-            obj.image.url,
+            'iTunes_email': obj.author_mail,
+            'iTunes_explicit': u'no',
+            'iTunes_image_url': obj.image.url,
             # 'iTunes_keywords': str(obj.tags),
-            'parent_category':
-            obj.parent_category,
-            'child_category':
-            obj.child_category,
-            'pub_date':
-            datetime.combine(obj.dateCreated,
-                             time()).strftime("%Y-%m-%d %H:%M:%S"),
+            'parent_category': obj.parent_category,
+            'child_category': obj.child_category,
+            'pub_date': obj.dateCreated
         }
 
         return extra_args
