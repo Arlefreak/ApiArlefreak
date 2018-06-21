@@ -71,6 +71,7 @@ class Podcast(SortableMixin):
     website = models.URLField()
     episodesUrl = models.URLField()
     iTunesURL = models.URLField(blank=True, null=True)
+    googlePodcast = models.URLField(blank=True, null=True)
     feedBurner = models.URLField(blank=True, null=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
