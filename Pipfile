@@ -27,7 +27,7 @@ django-location-field = "*"
 django-ordered-model = "*"
 django-solo = "*"
 django-taggit = "*"
-django-taggit-serializer = {git = "git://github.com/Arlefreak/django-taggit-serializer.git", editable = true, ref = "c948c11152f676e1d0893468d4000a6ec6c9ed63"}
+django-taggit-serializer = {editable = true, ref = "c948c11152f676e1d0893468d4000a6ec6c9ed63", git = "git://github.com/Arlefreak/django-taggit-serializer.git"}
 djangorestframework = "*"
 greenlet = "*"
 gunicorn = "*"
