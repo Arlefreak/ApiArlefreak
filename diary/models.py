@@ -1,18 +1,20 @@
+import os
+
+from adminsortable.fields import SortableForeignKey
+from adminsortable.models import SortableMixin
 from django.db import models
 from django.template.defaultfilters import slugify
-from adminsortable.models import SortableMixin
-from adminsortable.fields import SortableForeignKey
-from taggit.managers import TaggableManager
-from taggit.models import TaggedItemBase
 from embed_video.fields import EmbedVideoField
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill, Adjust
-import os
+from imagekit.processors import Adjust, ResizeToFill
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 
 IMAGE_TYPE = (
     ('mni', 'Main Image'),
     ('gal', 'Gallery'),
 )
+
 
 def imageLocation(instance, filename):
     from django.utils.timezone import now
@@ -20,11 +22,13 @@ def imageLocation(instance, filename):
     return 'images/%s%s%s' % (
         filename_base,
         now().strftime("%Y%m%d%H%M%S"),
-        filename_ext.lower(),)
+        filename_ext.lower(),
+    )
 
 
 class TaggedPost(TaggedItemBase):
     content_object = models.ForeignKey('Post', on_delete=models.CASCADE)
+
 
 class Post(models.Model):
     publish = models.BooleanField(default=False)
@@ -34,6 +38,7 @@ class Post(models.Model):
     tags = TaggableManager(through=TaggedPost, blank=True)
     dateCreated = models.DateField(auto_now_add=True)
     dateUpdated = models.DateField(auto_now=True)
+
     class Meta:
         ordering = ['-dateCreated', 'title']
 
@@ -68,7 +73,8 @@ class Post(models.Model):
 
 
 class Image(SortableMixin):
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
     post = SortableForeignKey('Post', on_delete=models.CASCADE)
     name = models.CharField(max_length=140)
@@ -83,7 +89,8 @@ class Image(SortableMixin):
         options={'quality': 100})
     thumbnailBW = ImageSpecField(
         source='image',
-        processors=[Adjust(color=0.0),ResizeToFill(200, 200)],
+        processors=[Adjust(color=0.0),
+                    ResizeToFill(200, 200)],
         format='PNG',
         options={'quality': 100})
 
@@ -99,12 +106,14 @@ class Image(SortableMixin):
                 ' height: auto; display: block;"/>' % self.thumbnail.url
         else:
             return 'No Image'
+
     image_img.short_description = 'Image'
     image_img.allow_tags = True
 
 
 class Video(SortableMixin):
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
     publish = models.BooleanField(default=False)
     post = SortableForeignKey('Post', on_delete=models.CASCADE)
     name = models.CharField(max_length=140)
