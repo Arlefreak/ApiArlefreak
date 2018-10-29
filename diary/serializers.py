@@ -19,9 +19,9 @@ class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
             if mainImage:
                 return mainImage.image.url
             else:
-                return 'No Image'
+                return None
         except:
-            return 'No Image'
+            return None
 
 
 class ImageSerializer(serializers.ModelSerializer):

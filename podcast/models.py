@@ -62,6 +62,7 @@ class Podcast(SortableMixin):
     author_mail = models.EmailField(max_length=140)
     slug = models.SlugField(editable=False)
     text = models.TextField()
+    faq = models.TextField(blank=True, null=True)
     small_text = models.CharField(max_length=255)
     parent_category = models.CharField(max_length=140)
     child_category = models.CharField(max_length=140)
