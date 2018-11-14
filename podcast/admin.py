@@ -50,6 +50,7 @@ class PodcastAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
                 'episodesUrl',
                 'iTunesURL',
                 'googlePodcast',
+                'spotify',
                 'feedBurner',
             )
         }),
