@@ -58,6 +58,7 @@ class PodcastAdmin(SortableAdmin, AdminImageMixin, ViewOnSiteMixin):
             'fields': (
                 'small_text',
                 'text',
+                'faq',
             ),
         }),
     )
