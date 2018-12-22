@@ -12,6 +12,8 @@ class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Post
+        lookup_field = 'slug'
+        extra_kwargs = {'url': {'lookup_field': 'slug'}}
 
     def get_main_image(self, obj):
         try:
