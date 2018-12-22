@@ -6,10 +6,10 @@ from .serializers import ImageSerializer, PostSerializer, PostTagSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all().filter(publish=True)
+    queryset = Post.objects.all().filter()
     serializer_class = PostSerializer
     filter_backends = (filters.DjangoFilterBackend, )
-    filter_fields = ('tags__name', )
+    filter_fields = ('tags__name', 'publish')
     lookup_field = 'slug'
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
